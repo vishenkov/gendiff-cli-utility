@@ -5,6 +5,7 @@ start:
 build:
 	rm -rf dist
 	npm run build
+	make test
 publish:
 	npm publish
 patch:
