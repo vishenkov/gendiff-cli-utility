@@ -12,3 +12,5 @@ npm-debug.log
 
 # Workspace
 dist
+test
+__tests__
