@@ -1,0 +1,14 @@
+# NODE.JS
+node_modules
+npm-debug.log
+
+# OS
+.DS_Store
+
+# Editors
+*.sublime-project
+*.sublime-workspace
+.vscode
+
+# Workspace
+dist

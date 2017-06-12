@@ -1,0 +1,31 @@
+{
+  "name": "gendiff",
+  "version": "0.0.1",
+  "description": "Compares two configuration files and shows a difference.",
+  "main": "index.js",
+  "bin": {
+    "gendiff": "dist/bin/gendiff.js"
+  },
+  "scripts": {
+    "babel-node": "babel-node",
+    "build": "NODE_ENV=production babel src --out-dir dist --source-maps inline",
+    "prepublish": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vishenkov/project-lvl2-s99.git"
+  },
+  "author": "Kirill Vishenkov <vishkir1991@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vishenkov/project-lvl2-s99/issues"
+  },
+  "homepage": "https://github.com/vishenkov/project-lvl2-s99#readme",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.25.0",
+    "babel-preset-env": "^1.5.2",
+    "babel-preset-stage-0": "^6.24.1"
+  }
+}
