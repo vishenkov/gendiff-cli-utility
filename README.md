@@ -3,6 +3,7 @@
 [![Test Coverage](https://codeclimate.com/github/vishenkov/project-lvl2-s99/badges/coverage.svg)](https://codeclimate.com/github/vishenkov/project-lvl2-s99/coverage)
 [![Issue Count](https://codeclimate.com/github/vishenkov/project-lvl2-s99/badges/issue_count.svg)](https://codeclimate.com/github/vishenkov/project-lvl2-s99)
 [![Build Status](https://travis-ci.org/vishenkov/project-lvl2-s99.svg?branch=master)](https://travis-ci.org/vishenkov/project-lvl2-s99)
+[![NPM Version](http://img.shields.io/npm/v/gendiff-vishkir.svg?style=flat)](https://www.npmjs.org/package/gendiff-vishkir)
 
 ## About
 > Compares two configuration files and shows a difference *(work in progress)*

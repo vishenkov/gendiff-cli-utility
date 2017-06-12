@@ -1,3 +1,4 @@
 #!/usr/bin/env node
+import init from '../init';
 
-console.log('Welcome to the gendiff!');
+init();
