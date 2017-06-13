@@ -15,8 +15,8 @@ const getExt = (filepath) => {
 export default (path1, path2) => {
   const ext1 = getExt(path1);
   const ext2 = getExt(path2);
-  const data1 = fs.readFileSync(path1);
-  const data2 = fs.readFileSync(path2);
+  const data1 = fs.readFileSync(path1, 'utf8');
+  const data2 = fs.readFileSync(path2, 'utf8');
 
   return adapter(parser(ext1), parser(ext2), gendiff)(data1, data2);
 };
