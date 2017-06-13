@@ -17,7 +17,7 @@
     "babel-node": "babel-node",
     "build": "NODE_ENV=production babel src --out-dir dist --source-maps inline",
     "prepublish": "npm run build",
-    "eslint": "eslint src/",
+    "eslint": "eslint src/* __tests__/*",
     "test": "jest"
   },
   "repository": {
@@ -39,6 +39,7 @@
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-jest": "^20.0.3",
     "jest": "^20.0.4"
   },
   "dependencies": {

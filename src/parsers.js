@@ -1,20 +1,14 @@
 import yaml from 'js-yaml';
 import ini from 'ini';
 
-const jsonParser = data => JSON.parse(data);
-
-const yamlParser = data => yaml.safeLoad(data);
-
-const iniParser = data => ini.parse(data);
-
 export default (ext) => {
   switch (ext) {
     case '.json':
-      return jsonParser;
+      return JSON.parse;
     case '.yml':
-      return yamlParser;
+      return yaml.safeLoad;
     case '.ini':
-      return iniParser;
+      return ini.parse;
     default:
       throw new Error(`${ext} isn\`t supported!`);
   }
