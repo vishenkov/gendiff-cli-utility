@@ -2,13 +2,13 @@ import _ from 'lodash';
 
 const genAst = (data1, data2) => {
   const iter = (obj1, obj2, acc) => {
-    if (!((obj1 instanceof Object) && (obj2 instanceof Object))) {
+    if (!(obj1 instanceof Object) && !(obj2 instanceof Object)) {
       return obj1 === obj2 ? obj1 : { first: obj1, second: obj2 };
     }
     if ((obj1 instanceof Object) && !(obj2 instanceof Object)) {
       return { first: iter(obj1, obj1, acc), second: obj2 };
     }
-    if ((obj1 instanceof Object) && !(obj2 instanceof Object)) {
+    if (!(obj1 instanceof Object) && (obj2 instanceof Object)) {
       return { first: obj1, second: iter(obj2, obj2, acc) };
     }
 
@@ -61,13 +61,25 @@ const render = (astObj) => {
       if (ast.value.first === ast.value.second) {
         return `${depth}${sign}${name}${ast.value.first}`;
       }
-      return `${depth}+ ${name}${ast.value.second}${depth}- ${name}${ast.value.first}`;
+      const getCompareStr = (astValue, type) => {
+        if (astValue instanceof Object) {
+          return iter({ name: ast.name, type, value: astValue }, depth);
+        }
+        return `${depth}${getSign(type)}${name}${astValue}`;
+      };
+
+      const secondValue = getCompareStr(ast.value.second, 'new');
+      const firstValue = getCompareStr(ast.value.first, 'deleted');
+      return `${secondValue}${firstValue}`;
     }
     return `${depth}${sign}${name}${ast.value}`;
   };
 
-  return iter(astObj, '\n');
+  return iter(astObj, '\n').substr(1);
 };
 
-export default (data1, data2) =>
-  render(genAst(data1, data2));
+export default (data1, data2) => {
+  const ast = genAst(data1, data2);
+  // console.log(JSON.stringify(ast, null, '  '));
+  return render(ast);
+};
