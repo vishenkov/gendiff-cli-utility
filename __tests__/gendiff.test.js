@@ -34,10 +34,10 @@ const genNestedTest = (type) => {
   });
 };
 
-// genTest('json');
-// genTest('yml');
-// genTest('ini');
+genTest('json');
+genTest('yml');
+genTest('ini');
 
-// genNestedTest('json');
-// genNestedTest('yml');
+genNestedTest('json');
+genNestedTest('yml');
 genNestedTest('ini');

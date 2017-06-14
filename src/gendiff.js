@@ -69,14 +69,5 @@ const render = (astObj) => {
   return iter(astObj, '\n');
 };
 
-export default (data1, data2) => {
-  // console.log(genAst(data1, data2));
-  // console.log(genAst(data1, data2).value[0].value[5].value);
-  // console.log(genAst(data1, data2).value[3].value);
-  // console.log(render(genAst(data1, data2)));
-  // console.log('1' + '\t1');
-  // console.log('2' + '\t\t2');
-  // console.log('3' + '\t\t\t3');
-  // console.log('4' + '\t\t\t\t4');
-  return render(genAst(data1, data2));
-};
+export default (data1, data2) =>
+  render(genAst(data1, data2));
