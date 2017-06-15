@@ -1,85 +1,43 @@
 import _ from 'lodash';
+import Node from './Node';
 
-const genAst = (data1, data2) => {
-  const iter = (obj1, obj2, acc) => {
-    if (!(obj1 instanceof Object) && !(obj2 instanceof Object)) {
-      return obj1 === obj2 ? obj1 : { first: obj1, second: obj2 };
+const buildAst = (data1, data2) => {
+  const getChild = (value, name, type) => {
+    if (value instanceof Object) {
+      const node = buildAst(value, value);
+      return new Node(name, type, null, node.children);
     }
-    if ((obj1 instanceof Object) && !(obj2 instanceof Object)) {
-      return { first: iter(obj1, obj1, acc), second: obj2 };
-    }
-    if (!(obj1 instanceof Object) && (obj2 instanceof Object)) {
-      return { first: obj1, second: iter(obj2, obj2, acc) };
-    }
-
-    const keys = _.union(Object.keys(obj1), Object.keys(obj2));
-    return keys.reduce((ast, key) => {
-      if ((key in obj1) && (key in obj2)) {
-        ast.push({ type: 'original', name: key, value: iter(obj1[key], obj2[key], []) });
-        return ast;
-      }
-      if (obj1[key]) {
-        ast.push({ type: 'deleted', name: key, value: iter(obj1[key], obj1[key], []) });
-        return ast;
-      }
-      ast.push({ type: 'new', name: key, value: iter(obj2[key], obj2[key], []) });
-      return ast;
-    }, acc);
+    return new Node(name, type, value, []);
   };
 
-  return { type: '', value: iter(data1, data2, []) };
-};
-
-const getSign = (type) => {
-  switch (type) {
-    case 'deleted':
-      return '- ';
-    case 'new':
-      return '+ ';
-    case 'original':
-      return '  ';
-    default:
-      return '';
-  }
-};
-
-const render = (astObj) => {
-  const iter = (ast, depth) => {
-    const name = ast.name ? `${ast.name}: ` : '';
-    const sign = getSign(ast.type);
-
-    if (ast.value instanceof Array) {
-      const strAst = ast.value.reduce((acc, value) => {
-        if (value.value instanceof Array) {
-          return `${acc}${iter(value, `${depth}\t`)}`;
-        }
-        return `${acc}${iter(value, `${depth}\t`)}`;
-      }, '');
-      return `${depth}${sign}${name}{${strAst}${depth}}`;
-    }
-    if (ast.value instanceof Object) {
-      if (ast.value.first === ast.value.second) {
-        return `${depth}${sign}${name}${ast.value.first}`;
+  const keys = _.union(Object.keys(data1), Object.keys(data2));
+  return keys.reduce((acc, key) => {
+    if ((key in data1) && (key in data2)) {
+      if (data1[key] === data2[key]) {
+        const child = getChild(data1[key], key, 'original');
+        return new Node(acc.name, acc.type, acc.value, [...acc.children, child]);
       }
-      const getCompareStr = (astValue, type) => {
-        if (astValue instanceof Object) {
-          return iter({ name: ast.name, type, value: astValue }, depth);
-        }
-        return `${depth}${getSign(type)}${name}${astValue}`;
-      };
 
-      const secondValue = getCompareStr(ast.value.second, 'new');
-      const firstValue = getCompareStr(ast.value.first, 'deleted');
-      return `${secondValue}${firstValue}`;
+      if ((data1[key] instanceof Object) && (data2[key] instanceof Object)) {
+        const node = buildAst(data1[key], data2[key]);
+        const child = new Node(key, node.type, null, node.children);
+        return new Node(acc.name, acc.type, acc.value, [...acc.children, child]);
+      }
+      const child1 = getChild(data1[key], key, 'deleted');
+      const child2 = getChild(data2[key], key, 'new');
+      return new Node(acc.name, acc.type, acc.value, [...acc.children, child2, child1]);
     }
-    return `${depth}${sign}${name}${ast.value}`;
-  };
 
-  return iter(astObj, '\n').substr(1);
+    if ((key in data1)) {
+      const child = getChild(data1[key], key, 'deleted');
+      return new Node(acc.name, acc.type, acc.value, [...acc.children, child]);
+    }
+    const child = getChild(data2[key], key, 'new');
+    return new Node(acc.name, acc.type, acc.value, [...acc.children, child]);
+  }, new Node('', 'original', null, []));
 };
 
 export default (data1, data2) => {
-  const ast = genAst(data1, data2);
-  // console.log(JSON.stringify(ast, null, '  '));
-  return render(ast);
+  const ast = buildAst(data1, data2);
+  return ast.toString();
 };
