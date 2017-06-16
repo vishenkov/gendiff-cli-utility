@@ -39,5 +39,5 @@ const buildAst = (data1, data2) => {
 
 export default (data1, data2) => {
   const ast = buildAst(data1, data2);
-  return ast.toString();
+  return ast;
 };

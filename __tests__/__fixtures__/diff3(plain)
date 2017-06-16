@@ -1,0 +1,10 @@
+'common.setting2' was removed
+'common.setting6' was updated. From complex value to 'not nested'
+'common.setting4' was added with value: blah blah
+'common.setting5' was added with complex value
+'group1.baz' was updated. From 'bas' to 'bars'
+'group2' was removed
+'group4.key1' was updated. From 'value1' to complex value
+'group4.key2.nested1.key2' was added with value: value2
+'group4.key3' was updated. From complex value to 'https://'
+'group3' was added with complex value

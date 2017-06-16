@@ -1,0 +1,3 @@
+'timeout' was updated. From '50' to '20'
+'proxy' was removed
+'verbose' was added with value: true

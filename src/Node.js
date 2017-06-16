@@ -27,9 +27,10 @@ export default class Node {
       return `${indent}${getIndent(depthNum - 1)}`;
     };
 
+    const currentDepth = getIndent(depth);
     const childrenStr = this.children.map(child => child.toString(depth + 1, indent)).join('\n');
-    const nameStr = this.name ? `${getIndent(depth)}${this.getTypeString()} ${this.name}: ` : '';
+    const nameStr = this.name ? `${currentDepth}${this.getTypeString()} ${this.name}: ` : '';
     const value = this.value ? `${this.value}` : '';
-    return `${nameStr}${value}${childrenStr ? `{\n${childrenStr}\n${getIndent(depth)}}` : ''}`;
+    return `${nameStr}${value}${childrenStr ? `{\n${childrenStr}\n${currentDepth}}` : ''}`;
   }
 }
