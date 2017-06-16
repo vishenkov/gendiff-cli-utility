@@ -30,7 +30,7 @@ export const plainRender = (astObj) => {
   };
   return inner(astObj)
             .split('\n')
-            .reduce((accum, value) => (value ? `${accum}'${value}\n` : accum), '')
+            .reduce((accum, value) => (value ? `${accum}Property '${value}\n` : accum), '')
             .slice(0, -1);
 };
 
