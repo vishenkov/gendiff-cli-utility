@@ -12,7 +12,7 @@ export default (ast) => {
         return `${acc}${obj.key}' was updated. From ${oldValue} to ${newValue}\n`;
       }
       if (obj.type === 'new') {
-        const value = obj.children instanceof Object ? 'complex value' : `value: ${obj.value}`;
+        const value = obj.value instanceof Object ? 'complex value' : `value: ${obj.value}`;
         return `${acc}${obj.key}' was added with ${value}\n`;
       }
       if (obj.type === 'deleted') {

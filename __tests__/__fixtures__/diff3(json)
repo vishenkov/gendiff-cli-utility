@@ -15,13 +15,10 @@
       },
       "setting6": {
         "type": "changed",
-        "oldValue": {
-          "key": {
-            "type": "original",
-            "value": "value"
-          }
+        "old": {
+          "key": "value"
         },
-        "newValue": "not nested"
+        "new": "not nested"
       },
       "setting4": {
         "type": "new",
@@ -30,10 +27,7 @@
       "setting5": {
         "type": "new",
         "value": {
-          "key5": {
-            "type": "original",
-            "value": "value5"
-          }
+          "key5": "value5"
         }
       }
     }
@@ -42,8 +36,8 @@
     {
       "baz": {
         "type": "changed",
-        "oldValue": "bas",
-        "newValue": "bars"
+        "old": "bas",
+        "new": "bars"
       },
       "foo": {
         "type": "original",
@@ -54,26 +48,17 @@
   "group2": {
     "type": "deleted",
     "value": {
-      "abc": {
-        "type": "original",
-        "value": "12345"
-      }
+      "abc": "12345"
     }
   },
   "group4": [
     {
       "key1": {
         "type": "changed",
-        "oldValue": "value1",
-        "newValue": {
-          "type": {
-            "type": "original",
-            "value": "string"
-          },
-          "content": {
-            "type": "original",
-            "value": "value"
-          }
+        "old": "value1",
+        "new": {
+          "type": "string",
+          "content": "value"
         }
       },
       "key2": [
@@ -98,23 +83,17 @@
       ],
       "key3": {
         "type": "changed",
-        "oldValue": {
-          "url": {
-            "type": "original",
-            "value": "https://"
-          }
+        "old": {
+          "url": "https://"
         },
-        "newValue": "https://"
+        "new": "https://"
       }
     }
   ],
   "group3": {
     "type": "new",
     "value": {
-      "fee": {
-        "type": "original",
-        "value": "100500"
-      }
+      "fee": "100500"
     }
   }
 }

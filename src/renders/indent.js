@@ -5,6 +5,7 @@ export default (ast) => {
     }
     return `${indent}${getIndent(depthNum - 1, indent)}`;
   };
+
   const getTypeStr = (type) => {
     switch (type) {
       case 'deleted':
@@ -19,6 +20,22 @@ export default (ast) => {
         return '';
     }
   };
+
+  const getValue = (value, depth = 0, indent = '\t') => {
+    const ind = getIndent(depth, indent);
+    if (value instanceof Object) {
+      const result = Object.keys(value)
+        .map((key) => {
+          const val = value[key] instanceof Object ?
+              getValue(value[key], depth + 1, indent)
+            : value[key];
+          return `  ${key}: ${val}`;
+        }).join(`\n${ind}`);
+      return `{\n${ind}${result}\n${getIndent(depth - 1, indent)}}`;
+    }
+    return value;
+  };
+
   const inner = (astObj, depth = 0, indent = '\t') =>
     astObj.map((obj) => {
       const key = obj.key ? `${obj.key}: ` : '';
@@ -30,11 +47,11 @@ export default (ast) => {
         return `\n${ind}${type} ${key}{${value}\n${ind}}`;
       }
       if (obj.type === 'changed') {
-        const oldValue = obj.old instanceof Object ? `{${inner(obj.old, depth + 1, indent)}\n${ind}}` : obj.old;
-        const newValue = obj.new instanceof Object ? `{${inner(obj.new, depth + 1, indent)}\n${ind}}` : obj.new;
+        const oldValue = getValue(obj.old, depth + 1, indent);
+        const newValue = getValue(obj.new, depth + 1, indent);
         return `\n${ind}+ ${key}${newValue}\n${ind}- ${key}${oldValue}`;
       }
-      const value = obj.children instanceof Object ? `{${inner(obj.children, depth + 1, indent)}\n${ind}}` : obj.value;
+      const value = getValue(obj.value, depth + 1, indent);
       return `\n${ind}${type} ${key}${value}`;
     }).join('');
 

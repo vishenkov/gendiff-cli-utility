@@ -5,8 +5,8 @@
   },
   "timeout": {
     "type": "changed",
-    "oldValue": "50",
-    "newValue": "20"
+    "old": "50",
+    "new": "20"
   },
   "proxy": {
     "type": "deleted",

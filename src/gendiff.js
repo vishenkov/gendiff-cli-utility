@@ -19,18 +19,10 @@ const genDiff = (data1, data2) => {
       return { type: 'original', key, value: data1[key] };
     }
     if ((key in data1) && (key in data2)) {
-      const oldValue = data1[key] instanceof Object ? genObject(data1[key]) : data1[key];
-      const newValue = data2[key] instanceof Object ? genObject(data2[key]) : data2[key];
-      return { type: 'changed', key, old: oldValue, new: newValue };
+      return { type: 'changed', key, old: data1[key], new: data2[key] };
     }
     if (key in data2) {
-      if (data2[key] instanceof Object) {
-        return { type: 'new', key, children: genObject(data2[key]) };
-      }
       return { type: 'new', key, value: data2[key] };
-    }
-    if (data1[key] instanceof Object) {
-      return { type: 'deleted', key, children: genObject(data1[key]) };
     }
     return { type: 'deleted', key, value: data1[key] };
   });

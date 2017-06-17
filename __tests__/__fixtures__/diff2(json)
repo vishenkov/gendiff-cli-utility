@@ -16,10 +16,7 @@
       "setting6": {
         "type": "deleted",
         "value": {
-          "key": {
-            "type": "original",
-            "value": "value"
-          }
+          "key": "value"
         }
       },
       "setting4": {
@@ -29,10 +26,7 @@
       "setting5": {
         "type": "new",
         "value": {
-          "key5": {
-            "type": "original",
-            "value": "value5"
-          }
+          "key5": "value5"
         }
       }
     }
@@ -41,8 +35,8 @@
     {
       "baz": {
         "type": "changed",
-        "oldValue": "bas",
-        "newValue": "bars"
+        "old": "bas",
+        "new": "bars"
       },
       "foo": {
         "type": "original",
@@ -53,19 +47,13 @@
   "group2": {
     "type": "deleted",
     "value": {
-      "abc": {
-        "type": "original",
-        "value": "12345"
-      }
+      "abc": "12345"
     }
   },
   "group3": {
     "type": "new",
     "value": {
-      "fee": {
-        "type": "original",
-        "value": "100500"
-      }
+      "fee": "100500"
     }
   }
 }
