@@ -1,6 +1,5 @@
 import fs from 'fs';
 import gendiff from '../src';
-import { plainRender, jsonRender } from '../src/renders';
 
 const basePath = '__tests__/__fixtures__/';
 const genTest = (type) => {
@@ -59,30 +58,30 @@ const genNestedTest = (type) => {
 const genPlainTest = (type) => {
   const diff1Plain = fs.readFileSync(`${basePath}diff1(plain)`, 'utf8');
   test(`${type}::plain:: before1 && after1 diff`, () => {
-    expect(gendiff(`${basePath}before1.${type}`, `${basePath}after1.${type}`, plainRender))
+    expect(gendiff(`${basePath}before1.${type}`, `${basePath}after1.${type}`, 'plain'))
     .toBe(diff1Plain);
   });
 
   const diff2Plain = fs.readFileSync(`${basePath}diff2(plain)`, 'utf8');
   test(`${type}::plain:: before2 && after2 diff`, () => {
-    expect(gendiff(`${basePath}before2.${type}`, `${basePath}after2.${type}`, plainRender))
+    expect(gendiff(`${basePath}before2.${type}`, `${basePath}after2.${type}`, 'plain'))
     .toBe(diff2Plain);
   });
 
   const diff3Plain = fs.readFileSync(`${basePath}diff3(plain)`, 'utf8');
   test(`${type}::plain:: before3 && after3 diff`, () => {
-    expect(gendiff(`${basePath}before3.${type}`, `${basePath}after3.${type}`, plainRender))
+    expect(gendiff(`${basePath}before3.${type}`, `${basePath}after3.${type}`, 'plain'))
     .toBe(diff3Plain);
   });
 
   const diff4Plain = fs.readFileSync(`${basePath}diff4(plain)`, 'utf8');
   test(`${type}::plain:: before4 && after4 diff`, () => {
-    expect(gendiff(`${basePath}before4.${type}`, `${basePath}after4.${type}`, plainRender))
+    expect(gendiff(`${basePath}before4.${type}`, `${basePath}after4.${type}`, 'plain'))
     .toBe(diff4Plain);
   });
 
   test(`${type}::plain:: before3 && after3 diff`, () => {
-    expect(gendiff(`${basePath}before3.${type}`, `${basePath}before3.${type}`, plainRender))
+    expect(gendiff(`${basePath}before3.${type}`, `${basePath}before3.${type}`, 'plain'))
     .toBe('');
   });
 };
@@ -90,25 +89,25 @@ const genPlainTest = (type) => {
 const genJSONTest = (type) => {
   const diff1JSON = fs.readFileSync(`${basePath}diff1(json)`, 'utf8');
   test(`${type}::JSON:: before1 && after1 diff`, () => {
-    expect(gendiff(`${basePath}before1.${type}`, `${basePath}after1.${type}`, jsonRender))
+    expect(gendiff(`${basePath}before1.${type}`, `${basePath}after1.${type}`, 'json'))
     .toBe(diff1JSON);
   });
 
   const diff2JSON = fs.readFileSync(`${basePath}diff2(json)`, 'utf8');
   test(`${type}::JSON:: before2 && after2 diff`, () => {
-    expect(gendiff(`${basePath}before2.${type}`, `${basePath}after2.${type}`, jsonRender))
+    expect(gendiff(`${basePath}before2.${type}`, `${basePath}after2.${type}`, 'json'))
     .toBe(diff2JSON);
   });
 
   const diff3JSON = fs.readFileSync(`${basePath}diff3(json)`, 'utf8');
   test(`${type}::JSON:: before3 && after3 diff`, () => {
-    expect(gendiff(`${basePath}before3.${type}`, `${basePath}after3.${type}`, jsonRender))
+    expect(gendiff(`${basePath}before3.${type}`, `${basePath}after3.${type}`, 'json'))
     .toBe(diff3JSON);
   });
 
   const diff4JSON = fs.readFileSync(`${basePath}diff4(json)`, 'utf8');
   test(`${type}::JSON:: before4 && after4 diff`, () => {
-    expect(gendiff(`${basePath}before4.${type}`, `${basePath}after4.${type}`, jsonRender))
+    expect(gendiff(`${basePath}before4.${type}`, `${basePath}after4.${type}`, 'json'))
     .toBe(diff4JSON);
   });
 };

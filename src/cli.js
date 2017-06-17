@@ -1,6 +1,5 @@
 import program from 'commander';
 import gendiff from './';
-import * as render from './renders';
 
 export default () => {
   program
@@ -9,13 +8,7 @@ export default () => {
     .option('-f, --format [type]', 'output format')
     .arguments('<firstConfig> <secondConfig>')
     .action((firstConfig, secondConfig) => {
-      const renderDiff = program.format ?
-          render[`${program.format}Render`]
-        : render.indentRender;
-      if (typeof renderDiff === 'undefined') {
-        throw new Error(`-f ${program.format} isn\`t supported!`);
-      }
-      console.log(gendiff(firstConfig, secondConfig, renderDiff));
+      console.log(gendiff(firstConfig, secondConfig, program.format));
     })
     .parse(process.argv);
 };
