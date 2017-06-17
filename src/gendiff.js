@@ -38,15 +38,14 @@ const buildAst = (data1, data2) => {
 };
 
 const genDiff = (data1, data2) => {
-  const genObject = (data) => {
-    return Object.keys(data)
+  const genObject = data =>
+    Object.keys(data)
     .map((key) => {
       if (data[key] instanceof Object) {
         return { type: 'original', key, children: genObject(data[key]) };
       }
       return { type: 'original', key, value: data[key] };
     });
-  };
 
   const keys = _.union(Object.keys(data1), Object.keys(data2));
   return keys.map((key) => {

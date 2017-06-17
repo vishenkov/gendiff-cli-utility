@@ -81,13 +81,13 @@ const genPlainTest = (type) => {
   });
 };
 
-// genTest('json');
-// genTest('yml');
-// genTest('ini');
+genTest('json');
+genTest('yml');
+genTest('ini');
 
-// genNestedTest('json');
-// genNestedTest('yml');
-// genNestedTest('ini');
+genNestedTest('json');
+genNestedTest('yml');
+genNestedTest('ini');
 
 genPlainTest('json');
 genPlainTest('yml');

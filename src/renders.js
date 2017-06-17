@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 export const indentRender = (ast) => {
   const getIndent = (depthNum, indent) => {
     if (depthNum <= 0) {
@@ -7,29 +5,37 @@ export const indentRender = (ast) => {
     }
     return `${indent}${getIndent(depthNum - 1, indent)}`;
   };
+  const getTypeStr = (type) => {
+    switch (type) {
+      case 'deleted':
+        return '-';
+      case 'new':
+        return '+';
+      case 'original':
+        return ' ';
+      case 'nested':
+        return ' ';
+      default:
+        return '';
+    }
+  };
   const inner = (astObj, depth = 0, indent = '\t') =>
     astObj.map((obj) => {
       const key = obj.key ? `${obj.key}: ` : '';
       const ind = getIndent(depth, indent);
+      const type = getTypeStr(obj.type);
+
       if (obj.type === 'nested') {
         const value = inner(obj.children, depth + 1, indent);
-        return `\n${ind}  ${key}{${value}\n${ind}}`;
+        return `\n${ind}${type} ${key}{${value}\n${ind}}`;
       }
       if (obj.type === 'changed') {
         const oldValue = obj.old instanceof Object ? `{${inner(obj.old, depth + 1, indent)}\n${ind}}` : obj.old;
         const newValue = obj.new instanceof Object ? `{${inner(obj.new, depth + 1, indent)}\n${ind}}` : obj.new;
         return `\n${ind}+ ${key}${newValue}\n${ind}- ${key}${oldValue}`;
       }
-      if (obj.type === 'new') {
-        const value = obj.children instanceof Object ? `{${inner(obj.children, depth + 1, indent)}\n${ind}}` : obj.value;
-        return `\n${ind}+ ${key}${value}`;
-      }
-      if (obj.type === 'deleted') {
-        const value = obj.children instanceof Object ? `{${inner(obj.children, depth + 1, indent)}\n${ind}}` : obj.value;
-        return `\n${ind}- ${key}${value}`;
-      }
       const value = obj.children instanceof Object ? `{${inner(obj.children, depth + 1, indent)}\n${ind}}` : obj.value;
-      return `\n${ind}  ${key}${value}`;
+      return `\n${ind}${type} ${key}${value}`;
     }).join('');
 
   const astStr = inner(ast, 1, '\t');
@@ -37,8 +43,8 @@ export const indentRender = (ast) => {
 };
 
 export const plainRender = (ast) => {
-  const inner = (astObj) => {
-    return astObj.reduce((acc, obj) => {
+  const inner = astObj =>
+    astObj.reduce((acc, obj) => {
       if (obj.type === 'nested') {
         const children = inner(obj.children).split('\n')
           .reduce((accum, value) => (value ? `${accum}${obj.key}.${value}\n` : accum), '');
@@ -58,7 +64,6 @@ export const plainRender = (ast) => {
       }
       return acc;
     }, '');
-  };
 
   const msgs = inner(ast).split('\n')
     .reduce((accum, value) => (value ? `${accum}Property '${value}\n` : accum), '')
