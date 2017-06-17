@@ -11,7 +11,10 @@
     "testPathIgnorePatterns": [
       "/node_modules/",
       "/__fixtures__/"
-    ]
+    ],
+    "collectCoverage": true,
+    "coverageDirectory": "testcoverage",
+    "coverageReporters": ["lcov"]
   },
   "scripts": {
     "babel-node": "babel-node",

@@ -6,7 +6,7 @@
 [![NPM Version](http://img.shields.io/npm/v/gendiff-vishkir.svg?style=flat)](https://www.npmjs.org/package/gendiff-vishkir)
 
 ## About
-> Compares two configuration files and shows a difference *(work in progress)*
+> Compares two configuration files and shows a difference
 
 ## Setup
 ```
@@ -17,4 +17,15 @@ make install
 ```
 npm install gendiff-vishkir
 ```
+## help
+```
+Usage: gendiff [options] <firstConfig> <secondConfig>
 
+  Compares two configuration files and shows a difference
+
+  Options:
+
+    -h, --help           output usage information
+    -V, --version        output the version number
+    -f, --format [type]  output format
+```
