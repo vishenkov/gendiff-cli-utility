@@ -1,6 +1,41 @@
 import _ from 'lodash';
 
-export const indentRender = astObj => astObj.toString();
+export const indentRender = (ast) => {
+  const inner = (astObj, depth = 0, indent = '\t') => {
+    const getIndent = (depthNum) => {
+      if (depthNum <= 0) {
+        return '';
+      }
+      return `${indent}${getIndent(depthNum - 1)}`;
+    };
+    return astObj.map((obj) => {
+      const key = obj.key ? `${obj.key}: ` : '';
+      const ind = getIndent(depth);
+      if (obj.type === 'nested') {
+        const value = inner(obj.children, depth + 1, indent);
+        return `\n${ind}  ${key}{${value}\n${ind}}`;
+      }
+      if (obj.type === 'changed') {
+        const oldValue = obj.old instanceof Object ? `{${inner(obj.old, depth + 1, indent)}\n${ind}}` : obj.old;
+        const newValue = obj.new instanceof Object ? `{${inner(obj.new, depth + 1, indent)}\n${ind}}` : obj.new;
+        return `\n${ind}+ ${key}${newValue}\n${ind}- ${key}${oldValue}`;
+      }
+      if (obj.type === 'new') {
+        const value = obj.children instanceof Object ? `{${inner(obj.children, depth + 1, indent)}\n${ind}}` : obj.value;
+        return `\n${ind}+ ${key}${value}`;
+      }
+      if (obj.type === 'deleted') {
+        const value = obj.children instanceof Object ? `{${inner(obj.children, depth + 1, indent)}\n${ind}}` : obj.value;
+        return `\n${ind}- ${key}${value}`;
+      }
+      const value = obj.children instanceof Object ? `{${inner(obj.children, depth + 1, indent)}\n${ind}}` : obj.value;
+      return `\n${ind}  ${key}${value}`;
+    }).join('');
+  };
+
+  const astStr = inner(ast, 1, '\t');
+  return `{${astStr}\n}`;
+};
 
 export const plainRender = (astObj) => {
   const inner = (ast) => {
