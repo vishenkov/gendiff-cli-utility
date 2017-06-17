@@ -1,0 +1,71 @@
+{
+  "common": [
+    {
+      "setting1": {
+        "type": "original",
+        "value": "Value 1"
+      },
+      "setting2": {
+        "type": "deleted",
+        "value": "200"
+      },
+      "setting3": {
+        "type": "original",
+        "value": "true"
+      },
+      "setting6": {
+        "type": "deleted",
+        "value": {
+          "key": {
+            "type": "original",
+            "value": "value"
+          }
+        }
+      },
+      "setting4": {
+        "type": "new",
+        "value": "blah blah"
+      },
+      "setting5": {
+        "type": "new",
+        "value": {
+          "key5": {
+            "type": "original",
+            "value": "value5"
+          }
+        }
+      }
+    }
+  ],
+  "group1": [
+    {
+      "baz": {
+        "type": "changed",
+        "oldValue": "bas",
+        "newValue": "bars"
+      },
+      "foo": {
+        "type": "original",
+        "value": "bar"
+      }
+    }
+  ],
+  "group2": {
+    "type": "deleted",
+    "value": {
+      "abc": {
+        "type": "original",
+        "value": "12345"
+      }
+    }
+  },
+  "group3": {
+    "type": "new",
+    "value": {
+      "fee": {
+        "type": "original",
+        "value": "100500"
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import fs from 'fs';
 import gendiff from '../src';
-import { plainRender } from '../src/renders';
+import { plainRender, jsonRender } from '../src/renders';
 
 const basePath = '__tests__/__fixtures__/';
 const genTest = (type) => {
@@ -75,9 +75,41 @@ const genPlainTest = (type) => {
     .toBe(diff3Plain);
   });
 
+  const diff4Plain = fs.readFileSync(`${basePath}diff4(plain)`, 'utf8');
+  test(`${type}::plain:: before4 && after4 diff`, () => {
+    expect(gendiff(`${basePath}before4.${type}`, `${basePath}after4.${type}`, plainRender))
+    .toBe(diff4Plain);
+  });
+
   test(`${type}::plain:: before3 && after3 diff`, () => {
     expect(gendiff(`${basePath}before3.${type}`, `${basePath}before3.${type}`, plainRender))
     .toBe('');
+  });
+};
+
+const genJSONTest = (type) => {
+  const diff1JSON = fs.readFileSync(`${basePath}diff1(json)`, 'utf8');
+  test(`${type}::JSON:: before1 && after1 diff`, () => {
+    expect(gendiff(`${basePath}before1.${type}`, `${basePath}after1.${type}`, jsonRender))
+    .toBe(diff1JSON);
+  });
+
+  const diff2JSON = fs.readFileSync(`${basePath}diff2(json)`, 'utf8');
+  test(`${type}::JSON:: before2 && after2 diff`, () => {
+    expect(gendiff(`${basePath}before2.${type}`, `${basePath}after2.${type}`, jsonRender))
+    .toBe(diff2JSON);
+  });
+
+  const diff3JSON = fs.readFileSync(`${basePath}diff3(json)`, 'utf8');
+  test(`${type}::JSON:: before3 && after3 diff`, () => {
+    expect(gendiff(`${basePath}before3.${type}`, `${basePath}after3.${type}`, jsonRender))
+    .toBe(diff3JSON);
+  });
+
+  const diff4JSON = fs.readFileSync(`${basePath}diff4(json)`, 'utf8');
+  test(`${type}::JSON:: before4 && after4 diff`, () => {
+    expect(gendiff(`${basePath}before4.${type}`, `${basePath}after4.${type}`, jsonRender))
+    .toBe(diff4JSON);
   });
 };
 
@@ -92,3 +124,7 @@ genNestedTest('ini');
 genPlainTest('json');
 genPlainTest('yml');
 genPlainTest('ini');
+
+genJSONTest('json');
+genJSONTest('yml');
+genJSONTest('ini');

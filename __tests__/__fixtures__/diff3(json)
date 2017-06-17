@@ -1,0 +1,120 @@
+{
+  "common": [
+    {
+      "setting1": {
+        "type": "original",
+        "value": "Value 1"
+      },
+      "setting2": {
+        "type": "deleted",
+        "value": "200"
+      },
+      "setting3": {
+        "type": "original",
+        "value": "true"
+      },
+      "setting6": {
+        "type": "changed",
+        "oldValue": {
+          "key": {
+            "type": "original",
+            "value": "value"
+          }
+        },
+        "newValue": "not nested"
+      },
+      "setting4": {
+        "type": "new",
+        "value": "blah blah"
+      },
+      "setting5": {
+        "type": "new",
+        "value": {
+          "key5": {
+            "type": "original",
+            "value": "value5"
+          }
+        }
+      }
+    }
+  ],
+  "group1": [
+    {
+      "baz": {
+        "type": "changed",
+        "oldValue": "bas",
+        "newValue": "bars"
+      },
+      "foo": {
+        "type": "original",
+        "value": "bar"
+      }
+    }
+  ],
+  "group2": {
+    "type": "deleted",
+    "value": {
+      "abc": {
+        "type": "original",
+        "value": "12345"
+      }
+    }
+  },
+  "group4": [
+    {
+      "key1": {
+        "type": "changed",
+        "oldValue": "value1",
+        "newValue": {
+          "type": {
+            "type": "original",
+            "value": "string"
+          },
+          "content": {
+            "type": "original",
+            "value": "value"
+          }
+        }
+      },
+      "key2": [
+        {
+          "nested1": [
+            {
+              "key0": {
+                "type": "original",
+                "value": "value0"
+              },
+              "key1": {
+                "type": "original",
+                "value": "value1"
+              },
+              "key2": {
+                "type": "new",
+                "value": "value2"
+              }
+            }
+          ]
+        }
+      ],
+      "key3": {
+        "type": "changed",
+        "oldValue": {
+          "url": {
+            "type": "original",
+            "value": "https://"
+          }
+        },
+        "newValue": "https://"
+      }
+    }
+  ],
+  "group3": {
+    "type": "new",
+    "value": {
+      "fee": {
+        "type": "original",
+        "value": "100500"
+      }
+    }
+  }
+}
